@@ -1,3 +1,64 @@
 #!/usr/bin/env rhino
 
-print('hi');
+//////////////////////////////////////////////////////////////////////////////
+// Constants
+
+const SPH_kPasswordPrefix = "@@";
+
+//////////////////////////////////////////////////////////////////////////////
+// Imports
+
+load('readline.js')
+load('md5.js');
+load('hashed-password.js');
+
+// Used to prompt for user input
+function prompt(msg, defInput) {
+  print(msg);
+
+  var input = readLine();
+  if (input) {
+    return '' + input;  //coerce to a JS string
+  } else {
+    return defInput;
+  }
+}
+
+function validateDomain(domain) {
+  var domRegExp = /^(https?:\/\/)?([a-z0-9\-]+\.)+([a-z0-9\-]+)(\/.*)?$/i;
+  var match = domRegExp.exec(domain);
+  if (!match) {
+    return false;
+  } else {
+    // we just use the last two parts of the domain
+    domain = match[ match.length - 3] + match[ match.length - 2];
+    return domain;
+  }
+}
+
+function main() {
+  var domain = arguments[0] || '';
+
+  var parsedDomain;
+  while(!parsedDomain) {
+    if (!domain) {
+      domain = prompt('Domain name? ', '');
+    }
+
+    parsedDomain = validateDomain(domain);
+    if (!parsedDomain) {
+      print("Unable to parse domain; try again.");
+      domain='';
+    } else if (parsedDomain != domain) {
+      print("Using " + parsedDomain + " as domain name.");
+    }
+  }
+
+  var masked = prompt('Your Master Password? ', '');
+  var result = new SPH_HashedPassword(masked, parsedDomain);
+
+  return result;
+}
+
+var result = main.apply(this, arguments);
+print("Your site-specific password is " + result);
