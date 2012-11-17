@@ -7,8 +7,8 @@ pwhash is a command-line implementation of the [Web Password Hashing][] algorith
 
 ## Installation ##
 
-This project depends on having a command-line javascript interpreter.
-Most systems can use [Rhino][].
+This project depends on the [Rhino][] javascript interpreter.
+Most systems can use install [Rhino][] via their local package manager:
 
 On linux: `sudo apt-get install rhino`
 
