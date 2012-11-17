@@ -3,7 +3,7 @@
 pwhash is a command-line implementation of the [Web Password Hashing][] algorithm from the [Stanford Security Lab][].
 
 [Web password hashing]: http://crypto.stanford.edu/PwdHash
-[Standford Security Lab]: http://seclab.stanford.edu/
+[Stanford Security Lab]: http://seclab.stanford.edu/
 
 ## Installation ##
 
